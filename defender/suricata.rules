@@ -1,0 +1,12 @@
+# suricata.rules
+# Detectar headers sospechosos usados en la exfiltración
+
+# Alerta sobre headers de alta entropía o nombres inusuales
+alert http2 any any -> any any (msg:"ET MALWARE Suspicious HTTP/2 Header (X-Session-ID)"; http2.header; content:"X-Session-ID"; sid:1000001; rev:1;)
+alert http2 any any -> any any (msg:"ET MALWARE Suspicious HTTP/2 Header (X-File-Part)"; http2.header; content:"X-File-Part"; sid:1000002; rev:1;)
+alert http2 any any -> any any (msg:"ET MALWARE Suspicious HTTP/2 Header (X-Credentials)"; http2.header; content:"X-Credentials"; sid:1000003; rev:1;)
+alert http2 any any -> any any (msg:"ET MALWARE Suspicious HTTP/2 Header (X-Encrypted-Payload)"; http2.header; content:"X-Encrypted-Payload"; sid:1000004; rev:1;)
+
+# Regla genérica para detectar muchos headers X-
+# (Nota: Suricata tiene soporte limitado para contar headers específicos en HTTP/2 sin lua scripting, 
+#  esto es una aproximación conceptual)

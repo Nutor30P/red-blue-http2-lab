@@ -1,0 +1,22 @@
+<!-- wazuh_rules.xml -->
+<group name="http2_exfil,">
+  
+  <!-- Regla para detectar logs del script de ML -->
+  <rule id="100010" level="10">
+    <decoded_as>json</decoded_as>
+    <field name="event_type">ml_detection</field>
+    <field name="prediction">malicious</field>
+    <description>HTTP/2 Exfiltration Detected by ML Model</description>
+    <mitre>
+      <id>T1048</id>
+    </mitre>
+  </rule>
+
+  <!-- Regla para detectar logs de Nginx con headers grandes (si se loguean) -->
+  <rule id="100011" level="7">
+    <if_sid>31101</if_sid>
+    <match>X-File-Part</match>
+    <description>Suspicious Header X-File-Part detected in Nginx logs</description>
+  </rule>
+
+</group>
